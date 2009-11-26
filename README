@@ -1,1 +1,8 @@
-A simple, secondary email inbox with no UI to read email.
+simple-inbox has two missions:
+
+1) provide secondary email addresses at *@inbox.yourdomain.com
+2) no UI to check those emails
+
+you might wonder how you can achieve (1) without (2), but it will do digest emails to your primary email account and provide an RSS feed to see your incoming emails
+
+no UI means it is simple
