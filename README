@@ -1,3 +1,7 @@
+Copyright 2009 Justin Perkins
+ 
+Simple Inbox is distributed under the GNU General Public Licens. See LICENSE or http://www.gnu.org/
+
 simple-inbox has two missions:
 
 1) provide secondary email addresses at *@inbox.yourdomain.com
@@ -6,3 +10,4 @@ simple-inbox has two missions:
 you might wonder how you can achieve (1) without (2), but it will do digest emails to your primary email account and provide an RSS feed to see your incoming emails
 
 no UI means it is simple
+
