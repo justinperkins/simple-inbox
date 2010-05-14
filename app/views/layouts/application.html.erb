@@ -1,0 +1,36 @@
+<%# Copyright 2009-2010 Justin Perkins %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title><%= @page_title || 'Simple Inbox' %></title>	
+	<%= stylesheet_link_tag 'application' %>
+</head>
+
+<body>
+  <div id="container">
+    <div id="header">
+      <h1><%= link_to 'Simple Inbox', '/' %></h1>
+      <h2>A really easy way to manage the shitty emails in our lives.</h2>
+    </div>
+    <div id="user-nav">
+      <ul>
+        <% if current_user %>
+          <li><%= link_to 'your page', user_path(current_user) %></li>
+          <li><%= link_to 'logout', user_session_path, :method => :delete %></li>
+        <% else %>
+          <li><%= link_to 'login', new_user_session_path %></li>
+          <li><%= link_to 'register', new_user_path %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div id="navigation">
+    </div>
+    <div id="content">
+      <%= yield %>
+    </div>
+    <div id="footer">
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+dudes_account:
+  user: dude
+  email: dude@mydomain.com
+  password: the dude abides
+  last_checked:
+  inactive:
+  preferences:
+walters_account:
+  user: walter
+  email: walter@hisdomain.com
+  password: over the line
+  last_checked:
+  inactive: <%= Time.now %>
+  preferences: 

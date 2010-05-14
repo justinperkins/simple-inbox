@@ -1,0 +1,21 @@
+<%# Copyright 2009-2010 Justin Perkins %>
+<h1>Login</h1>
+ 
+<% form_for @user_session, :url => user_session_path do |f| %>
+  <%= "<p class=\"error\">#{ @user_session.errors.full_messages.to_sentence }</p>" unless @user_session.errors.empty? %>
+  <p>
+    <%= f.label :login %>
+    <%= f.text_field :login %>
+  </p>
+  <p>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </p>
+  <p>
+    <%= f.check_box :remember_me %><%= f.label :remember_me %>
+  </p>
+  <p>
+    <%= f.submit "Login" %>
+    <%= link_to 'or create account', new_user_path %>
+  </p>
+<% end %>

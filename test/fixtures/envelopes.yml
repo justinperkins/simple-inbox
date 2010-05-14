@@ -1,0 +1,27 @@
+# t.integer       :linked_account_id
+# t.integer       :inbox_id
+# t.integer       :remote_identifier
+# t.datetime      :read
+# t.timestamps
+
+unread:
+  inbox: hello_box
+  remote_identifier: 1
+  from: Some Guy
+  from_email: somebody@test.com
+  subject: rock on with your test on
+  read: 
+read:
+  inbox: hello_box
+  remote_identifier: 2
+  from: Some Guy
+  from_email: somebody@test.com
+  subject: hello there
+  read: <%= Time.now %>
+amazon1:
+  inbox: amazon_box
+  remote_identifier: 1
+  read: <%= Time.now %>
+  from: Some Guy
+  from_email: somebody@test.com
+  subject: goodbye jumbo

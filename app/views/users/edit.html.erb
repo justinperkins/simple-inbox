@@ -1,0 +1,12 @@
+<%# Copyright 2009-2010 Justin Perkins %>
+<h1>Edit Your Account</h1>
+ 
+<% form_for @user, :url => edit_user_path(@user) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <p>
+    <%= f.submit "Update" %>
+    <%= link_to 'cancel changes', user_path(@user) %>
+  </p>
+<% end %>
+<p class="important"><%= button_to 'Delete Account', user_path(@user), :method => :delete, :confirm => 'Are you sure? Like really, really sure? Everything of yours will be permanently deleted.' %></p>

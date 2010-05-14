@@ -1,0 +1,21 @@
+<%# Copyright 2009-2010 Justin Perkins %>
+<h1>Edit Your Linked Account (gmail)</h1>
+ 
+<% form_for @linked_account, :url => edit_linked_account_path(@linked_account) do |f| %>
+  <%= f.error_messages %>
+  <% if @linked_account.active? %>
+    <%= render :partial => "form", :object => f %>
+    <p>
+      <%= f.submit "Update" %>
+      <%= link_to 'cancel changes', user_path(current_user) %>
+    </p>
+  <% else %>
+    <h3>This linked account is currently inactive, please re-enable the account if you'd like to edit these settings.</h3>
+  <% end %>
+<% end %>
+<% if @linked_account.active? %>
+  <%= button_to 'Temporarily Disable Linked Account', deactivate_linked_account_path(@linked_account), :method => :post, :confirm => 'Your email on your linked account will be untouched by Simple Inbox until you come back here and re-enable it. Is that what you want?' %>
+<% else %>
+  <%= button_to 'Re-enable Linked Account', activate_linked_account_path(@linked_account), :method => :post, :confirm => 'We will start processing your emails again on your linked account. Is that what you want?' %>
+<% end %>
+<%= button_to 'Remove Linked Account Forever', linked_account_path(@linked_account), :method => :delete, :confirm => 'Are you sure? Any existing mailboxes, emails and account rules will be PERMANENTLY DELETED.' %>

@@ -1,0 +1,20 @@
+hello_box:
+  linked_account: dudes_account
+  label: hello
+  rule_id:
+  last_used: <%= Time.now %>
+spam_box:
+  linked_account: dudes_account
+  label: junk
+  rule_id: spam
+  last_used: <%= Time.now %>
+trash_box:
+  linked_account: walters_account
+  label: saturday
+  rule_id: trash
+  last_used: <%= Time.now %>
+amazon_box:
+  linked_account: walters_account
+  label: amazon
+  rule_id:
+  last_used: <%= Time.now %>

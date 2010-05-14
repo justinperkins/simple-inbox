@@ -1,2 +1,5 @@
+schema.rb
+*.sqlite3
 database.yml
 *.log
+vendor/

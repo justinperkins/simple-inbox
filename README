@@ -1,13 +1,15 @@
-Copyright 2009 Justin Perkins
+Copyright 2009-2010 Justin Perkins
  
 Simple Inbox is distributed under the GNU General Public Licens. See LICENSE or http://www.gnu.org/
 
 simple-inbox has two missions:
 
-1) provide secondary email addresses at *@inbox.yourdomain.com
-2) no UI to check those emails
+1) be simple
+2) allow easy access to your auxiliary emails at *@inbox.yourdomain.com
+3) no UI to check those emails
 
-you might wonder how you can achieve (1) without (2), but it will do digest emails to your primary email account and provide an RSS feed to see your incoming emails
+you might wonder how you can achieve (2) without (3), but it will do digest emails to your primary email account and provide an RSS feed to see your incoming emails
 
-no UI means it is simple
+no UI means it is simple, we are not interested in solving the problem of creating an email interface
 
+prerequisite: a catch-all account setup on gmail with Google Apps with Your Domain

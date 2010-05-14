@@ -1,0 +1,20 @@
+<%# Copyright 2009-2010 Justin Perkins %>
+<h1>Your Account</h1>
+<fieldset>
+  <legend>Personal <span>(<%= link_to 'edit', edit_user_path %>)</span></legend>
+  <%= display_attribute(@user, :login) %>
+  <%= display_attribute(@user, :email, :value => (@user.email.blank? ? 'not specified' : @user.email))%>
+</fieldset>
+<fieldset>
+  <legend>Linked Email Account <span>(<%= link_to_edit_or_new_linked_account(@user) %>)</span></legend>
+  <% if @user.linked_account %>
+    <%= display_attribute(@user.linked_account, :email) %>
+    <%= display_attribute(@user.linked_account, :label => 'Mailboxes', :value => @user.linked_account.inboxes.count) %>
+    <%= display_attribute(@user.linked_account, :last_checked, :value => format_datetime(@user.linked_account.last_checked)) %>
+    <%= display_attribute(@user.linked_account, :label => 'State', :value => (@user.linked_account.inactive ? "deactivated on #{ format_datetime(@user.linked_account.inactive) }" : 'active')) %>
+    <%= display_attribute(@user.linked_account, :label => 'Instant mark as read', :value => (@user.linked_account.immediate_read? ? "active" : 'inactive')) %>
+    <%= display_attribute(@user.linked_account, :label => 'Immediate forward', :value => (@user.linked_account.forward_all? ? 'active' : 'inactive')) %>
+  <% else %>
+    <p><em><%= link_to 'You need to setup your linked account', new_linked_account_path %></em></p>
+  <% end %>
+</fieldset>

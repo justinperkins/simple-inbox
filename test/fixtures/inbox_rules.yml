@@ -1,0 +1,15 @@
+trash:
+  operation: trash
+  description: instantly trash it
+leave:
+  operation: leave
+  description: instantly trash it
+read:
+  operation: read
+  description: instantly mark as read
+spam:
+  operation: span
+  description: mark as spam
+forward:
+  operation: forward
+  description: forward to primary email
