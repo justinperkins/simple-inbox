@@ -9,7 +9,7 @@
 class Inbox < ActiveRecord::Base
   belongs_to :linked_account
   belongs_to :inbox_rule
-  has_many :envelopes, :dependent => :destroy
+  has_many :emails, :dependent => :destroy
 
   # allow the stop flag to be set/unset publicly
   attr_accessor :stop_processing
@@ -20,39 +20,37 @@ class Inbox < ActiveRecord::Base
     { :conditions => {:label => label} }
   }
   
-  def handle_incoming(gmail_envelope)
+  def handle_incoming(incoming_email)
     # quick exit if this envelope has been processed already
-    return if envelopes.find_by_remote_identifier(gmail_envelope.remote_identifier)
+    return if emails.find_by_uid(incoming_email.uid)
 
-    # get a local copy of the envelope attributes we'll use to create the new envelope
-    # delete the inbox attribute off of this envelope since we don't care about it in this context
-    envelope_attributes = gmail_envelope.attributes.reject { |k,v| k == :inbox }
+    email_attrs = {:uid => incoming_email.uid, :from => incoming_email.from, :from_email => incoming_email.from, :subject => incoming_email.subject}
 
     # give the before rules a chance to run, things like ignoring emails, auto-deleting them, etc
     # we're creating a new envelope so that our before_process filter can have an actual envelope object to work with
     # as opposed to this crazy gmail envelope that is passed in
-    before_process(Envelope.new(envelope_attributes))
+    before_process(Email.new(email_attrs))
     
     # the before rules can set the stop flag which tells us not to do anything with the envelope
     unless stop?
       # now we want to save the envelope
-      finalized_envelope = envelopes.create(envelope_attributes)
+      finalized_email = emails.create(email_attrs)
     end
     
     # now time for the after rules, such as forwarding to primary email, mark as read, etc
-    after_process(finalized_envelope)
+    after_process(finalized_email)
     
     # and lastly, update our usage time attribute
     record_usage
   end
   
-  def before_process(envelope)
+  def before_process(email)
     # render any before rules
     # set a "stop what you're doing flag" if needed
     # @stop_processing = true
   end
   
-  def after_process(envelope)
+  def after_process(email)
     # render any after rules
   end
   

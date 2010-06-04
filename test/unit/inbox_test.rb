@@ -3,47 +3,47 @@ require 'test_helper'
 require 'gmail_worker'
 
 class InboxTest < ActiveSupport::TestCase
-  test "handle basic incoming envelope" do
+  test "handle basic incoming email" do
     inbox = inboxes(:hello_box)
-    envelope = build_envelope
-    assert_difference "inbox.envelopes.count", 1 do
-      inbox.handle_incoming(envelope)
+    email = build_email
+    assert_difference "inbox.emails.count", 1 do
+      inbox.handle_incoming(email)
     end
   end
   
-  test "handle incoming envelope that has already been processed" do
+  test "handle incoming email that has already been processed" do
     inbox = inboxes(:hello_box)
-    envelope = build_envelope
+    email = build_email
     # set the remote identifier to something we're already using
-    envelope.update(:remote_identifier => inbox.envelopes.first.remote_identifier)
-    assert_difference "inbox.envelopes.count", 0 do
-      inbox.handle_incoming(envelope)
+    email.uid = inbox.emails.first.uid
+    assert_difference "inbox.emails.count", 0 do
+      inbox.handle_incoming(email)
     end
   end
   
-  test "handle basic incoming envelope invokes before rules" do
+  test "handle basic incoming email invokes before rules" do
     inbox = inboxes(:hello_box)
-    envelope = build_envelope
+    email = build_email
     inbox.expects(:before_process)
-    inbox.handle_incoming(envelope)
+    inbox.handle_incoming(email)
   end
 
-  test "handle basic incoming envelope invokes after rules" do
+  test "handle basic incoming email invokes after rules" do
     inbox = inboxes(:hello_box)
-    envelope = build_envelope
+    email = build_email
     inbox.expects(:after_process)
-    inbox.handle_incoming(envelope)
+    inbox.handle_incoming(email)
   end
 
-  test "handle incoming envelope with before rules" do
+  test "handle incoming email with before rules" do
     # not implemented yet
   end
   
-  test "handle incoming envelope with after rules" do
+  test "handle incoming email with after rules" do
     # not implemented yet
   end
   
-  test "handle incoming envelope with before and after rules" do
+  test "handle incoming email with before and after rules" do
     # not implemented yet
   end
   
@@ -51,7 +51,7 @@ class InboxTest < ActiveSupport::TestCase
     # not implemented yet
   end
   
-  test "before processing with envelope halting" do
+  test "before processing with email halting" do
     # not implemented yet
   end
   
@@ -82,19 +82,15 @@ class InboxTest < ActiveSupport::TestCase
     inbox = inboxes(:hello_box)
     inbox.stop_processing = true # force the stop flag, hacky test
 
-    envelope = build_envelope
-    assert_difference "inbox.envelopes.count", 0 do
-      inbox.handle_incoming(envelope)
+    email = build_email
+    assert_difference "inbox.emails.count", 0 do
+      inbox.handle_incoming(email)
     end
   end
   
   private
-  def build_envelope
-    GmailEnvelope.new(Time.now.to_i).update({
-      :inbox => 'dude', 
-      :from => 'jeff lebowski', 
-      :from_email => 'dude@lebowski.com', 
-      :subject => 'Will you abide?'
-    })
+  def build_email
+    mail = Struct.new(:from, :subject, :uid)
+    mail.new('dude@lebowski.com', 'Will you abide?', Time.now.to_i)
   end
 end

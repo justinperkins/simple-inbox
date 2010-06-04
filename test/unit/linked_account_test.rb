@@ -43,16 +43,33 @@ class LinkedAccountTest < ActiveSupport::TestCase
     account.expects(:process).with('e1')
     account.expects(:process).with('e2')
     account.expects(:process).with('e3')
-    worker = mock('gmail worker')
-    worker.expects(:inbox).returns(%w{ e1 e2 e3 })
-    GmailWorker.expects(:new).yields(worker)
+
+    gmail = mock('gmail')
+    inbox = mock('gmail inbox')
+    inbox.expects(:emails).returns(%w{ e1 e2 e3 })
+    gmail.expects(:inbox).returns(inbox)
+    Gmail.expects(:new).with(account.email, account.password).returns(gmail)
+
     account.pull
+  end
+  
+  test "pull account updates last checked" do
+    account = linked_accounts(:dudes_account)
+    assert_nil account.last_checked
+    gmail = mock('gmail')
+    inbox = mock('gmail inbox')
+    inbox.expects(:emails).returns([])
+    gmail.expects(:inbox).returns(inbox)
+    Gmail.expects(:new).with(account.email, account.password).returns(gmail)
+    account.pull
+    assert_not_nil account.last_checked
+    assert account.last_checked > 1.second.ago
   end
   
   test "process envelope" do
     account = linked_accounts(:dudes_account)
     fake_envelope = mock('envelope')
-    fake_envelope.expects(:inbox).returns('bowling')
+    fake_envelope.expects(:to).returns('bowling@lebowski.com')
     fake_inbox = mock('inbox')
     fake_inbox.expects(:new_record?).returns(false)
     fake_inbox.expects(:handle_incoming).with(fake_envelope)
@@ -63,7 +80,7 @@ class LinkedAccountTest < ActiveSupport::TestCase
   test "process envelope with inbox creation failure" do
     account = linked_accounts(:dudes_account)
     fake_envelope = mock('envelope')
-    fake_envelope.expects(:inbox).returns('bowling')
+    fake_envelope.expects(:to).returns('bowling@lebowski.com')
     fake_inbox = mock('inbox')
     fake_inbox.expects(:new_record?).returns(true)
     fake_inbox.expects(:handle_incoming).never

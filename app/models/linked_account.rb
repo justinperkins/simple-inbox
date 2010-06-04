@@ -11,7 +11,7 @@
 class LinkedAccount < ActiveRecord::Base
   belongs_to :user
   has_many :inboxes, :dependent => :destroy
-  has_many :envelopes, :through => :inboxes
+  has_many :emails, :through => :inboxes
   validates_presence_of :email, :password
   serialize :preferences, Hash
 
@@ -33,11 +33,11 @@ class LinkedAccount < ActiveRecord::Base
   
   def pull
     logger.info "processing inbox for user: #{ self.user.login } at #{ Time.now }"
-    GmailWorker.new(self.email, self.password, :logger => logger) do |worker|
-      worker.inbox.each do |envelope|
-        self.process(envelope)
-      end
+    
+    Gmail.new(self.email, self.password).inbox.emails(:after => self.last_checked).each do |email|
+      process(email)
     end
+    self.update_attributes(:last_checked => Time.now)
     logger.info "done processing inbox for user: #{ self.user.login } at #{ Time.now }"
     self
   end
@@ -61,13 +61,18 @@ class LinkedAccount < ActiveRecord::Base
     read_attribute(:preferences) || write_attribute(:preferences, {})
   end
   
-  def process(incoming_envelope)
-    inbox = inboxes.find_or_create_by_label(incoming_envelope.inbox)
+  def process(email)
+    inbox = inboxes.find_or_create_by_label(extract_inbox_name(email))
     unless inbox.new_record?
-      inbox.handle_incoming(incoming_envelope)
+      inbox.handle_incoming(email)
     else
-      raise LinkedAccountError, "Created an invalid inbox (#{ inbox.errors.full_messages.to_sentence }) and could do nothing with the envelope: #{ incoming_envelope.to_s }"
+      raise LinkedAccountError, "Created an invalid inbox (#{ inbox.errors.full_messages.to_sentence }) and could do nothing with the envelope: #{ email.inspect }"
     end
+  end
+  
+  private
+  def extract_inbox_name(email)
+    email.to.gsub(/(@.*$)/, '')
   end
 end
 

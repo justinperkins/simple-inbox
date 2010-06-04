@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EnvelopeTest < ActiveSupport::TestCase
+class EmailTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true

@@ -1,8 +1,8 @@
-class CreateEnvelopes < ActiveRecord::Migration
+class CreateEmails < ActiveRecord::Migration
   def self.up
-    create_table :envelopes do |t|
+    create_table :emails do |t|
       t.integer       :inbox_id
-      t.integer       :remote_identifier
+      t.integer       :uid
       t.string        :from
       t.string        :from_email
       t.string        :subject
@@ -12,6 +12,6 @@ class CreateEnvelopes < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :envelopes
+    drop_table :emails
   end
 end
