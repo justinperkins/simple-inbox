@@ -8,3 +8,13 @@
   <%= form.label :password, form.object.new_record? ? nil : "Change password" %>
   <%= form.password_field :password %>
 </p>
+<% unless form.object.new_record? %>
+  <p>
+    <%= form.label :immediate_read %>
+    <%= form.check_box :immediate_read %>
+  </p>
+  <p>
+    <%= form.label :forward_all %>
+    <%= form.check_box :forward_all %>
+  </p>
+<% end %>

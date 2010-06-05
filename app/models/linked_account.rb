@@ -5,7 +5,8 @@
 # t.string    :password # we need to be able to read these passwords later so we can't encrypt them
 # t.datetime  :last_checked
 # t.datetime  :inactive
-# t.string    :preferences
+# t.boolean   :immediate_read
+# t.boolean   :forward_all
 # t.timestamps
 
 class LinkedAccount < ActiveRecord::Base
@@ -13,20 +14,7 @@ class LinkedAccount < ActiveRecord::Base
   has_many :inboxes, :dependent => :destroy
   has_many :emails, :through => :inboxes
   validates_presence_of :email, :password
-  serialize :preferences, Hash
 
-  # expose preferences with easy to use methods to simulate real attributes
-  %w{ immediate_read forward_all }.each do |preference|
-    class_eval <<-end_eval
-      def #{ preference }?
-        self.preferences[:#{ preference }]
-      end
-      def #{ preference }=(value)
-        self.preferences[:#{ preference }] = value
-      end
-    end_eval
-  end
-  
   def self.pull_all
     self.all.each { |a| a.pull }
   end
@@ -56,11 +44,6 @@ class LinkedAccount < ActiveRecord::Base
     self.save
   end
 
-  # so we can default preferences to an empty hash since the serialize method doesn't do that for us
-  def preferences
-    read_attribute(:preferences) || write_attribute(:preferences, {})
-  end
-  
   def process(email)
     inbox = inboxes.find_or_create_by_label(extract_inbox_name(email))
     unless inbox.new_record?

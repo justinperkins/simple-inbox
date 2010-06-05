@@ -1,7 +1,7 @@
 <%# Copyright 2009-2010 Justin Perkins %>
 <h1>Edit Your Linked Account (gmail)</h1>
  
-<% form_for @linked_account, :url => edit_linked_account_path(@linked_account) do |f| %>
+<% form_for @linked_account do |f| %>
   <%= f.error_messages %>
   <% if @linked_account.active? %>
     <%= render :partial => "form", :object => f %>
