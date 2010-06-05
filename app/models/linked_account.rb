@@ -14,7 +14,7 @@ class LinkedAccount < ActiveRecord::Base
   has_many :inboxes, :dependent => :destroy
   has_many :emails, :through => :inboxes
   validates_presence_of :email, :password
-
+  
   def self.pull_all
     self.all.each { |a| a.pull }
   end

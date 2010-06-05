@@ -1,7 +1,5 @@
 require 'test_helper'
 
-require 'gmail_worker'
-
 class InboxTest < ActiveSupport::TestCase
   test "handle basic incoming email" do
     inbox = inboxes(:hello_box)

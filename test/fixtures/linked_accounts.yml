@@ -4,11 +4,13 @@ dudes_account:
   password: the dude abides
   last_checked:
   inactive:
-  preferences:
+  immediate_read:
+  forward_all:
 walters_account:
   user: walter
   email: walter@hisdomain.com
   password: over the line
   last_checked:
   inactive: <%= Time.now %>
-  preferences: 
+  immediate_read:
+  forward_all:

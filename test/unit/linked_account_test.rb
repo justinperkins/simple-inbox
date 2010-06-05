@@ -20,17 +20,18 @@ class LinkedAccountTest < ActiveSupport::TestCase
     assert a2.active?
   end
   
-  test "preferences initializes correctly" do
-    account = linked_accounts(:dudes_account)
-    assert_nil account.read_attribute(:preferences)
-    assert_equal Hash.new, account.preferences
-  end
-  
   test "mark as read preference" do
     a = linked_accounts(:walters_account)
     assert !a.immediate_read?
     a.immediate_read = true
     assert a.immediate_read?
+  end
+
+  test "forward all preference" do
+    a = linked_accounts(:walters_account)
+    assert !a.forward_all?
+    a.forward_all = true
+    assert a.forward_all?
   end
   
   test "pull all emails" do
