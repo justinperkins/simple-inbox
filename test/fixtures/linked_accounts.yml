@@ -4,7 +4,7 @@ dudes_account:
   password: the dude abides
   last_checked:
   inactive:
-  immediate_read:
+  immediate_archive: true
   forward_all:
 walters_account:
   user: walter
@@ -12,5 +12,5 @@ walters_account:
   password: over the line
   last_checked:
   inactive: <%= Time.now %>
-  immediate_read:
+  immediate_archive: true
   forward_all:

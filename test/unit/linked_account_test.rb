@@ -20,11 +20,11 @@ class LinkedAccountTest < ActiveSupport::TestCase
     assert a2.active?
   end
   
-  test "mark as read preference" do
+  test "instant archive preference" do
     a = linked_accounts(:walters_account)
-    assert !a.immediate_read?
-    a.immediate_read = true
-    assert a.immediate_read?
+    assert a.immediate_archive?
+    a.immediate_archive = false
+    assert !a.immediate_archive?
   end
 
   test "forward all preference" do
@@ -47,50 +47,29 @@ class LinkedAccountTest < ActiveSupport::TestCase
 
     gmail = mock('gmail')
     inbox = mock('gmail inbox')
-    inbox.expects(:emails).returns(%w{ e1 e2 e3 })
+    inbox.expects(:emails).with(:unread).returns(%w{ e1 e2 e3 })
     gmail.expects(:inbox).returns(inbox)
     Gmail.expects(:new).with(account.email, account.password).returns(gmail)
 
     account.pull
   end
   
-  test "pull account updates last checked" do
-    account = linked_accounts(:dudes_account)
-    assert_nil account.last_checked
-    gmail = mock('gmail')
-    inbox = mock('gmail inbox')
-    inbox.expects(:emails).returns([])
-    gmail.expects(:inbox).returns(inbox)
-    Gmail.expects(:new).with(account.email, account.password).returns(gmail)
-    account.pull
-    assert_not_nil account.last_checked
-    assert account.last_checked > 1.second.ago
+  test "pulling emails does labeling" do
+  end
+  
+  test "pulling emails does archive when enabled" do
+  end
+  
+  test "pulling emails skips archive when disabled" do
   end
   
   test "process envelope" do
     account = linked_accounts(:dudes_account)
     fake_envelope = mock('envelope')
-    fake_envelope.expects(:to).returns('bowling@lebowski.com')
     fake_inbox = mock('inbox')
-    fake_inbox.expects(:new_record?).returns(false)
+    LinkedAccount.any_instance.expects(:extract_inbox_name).with(fake_envelope).returns('bowling')
     fake_inbox.expects(:handle_incoming).with(fake_envelope)
     Inbox.expects(:find_or_create_by_label).with('bowling').returns(fake_inbox)
     account.process(fake_envelope)
-  end
-
-  test "process envelope with inbox creation failure" do
-    account = linked_accounts(:dudes_account)
-    fake_envelope = mock('envelope')
-    fake_envelope.expects(:to).returns('bowling@lebowski.com')
-    fake_inbox = mock('inbox')
-    fake_inbox.expects(:new_record?).returns(true)
-    fake_inbox.expects(:handle_incoming).never
-    fake_inbox.expects(:errors).returns(ActiveRecord::Errors.new('fake inbox'))
-    Inbox.expects(:find_or_create_by_label).with('bowling').returns(fake_inbox)
-    begin
-      account.process(fake_envelope)
-    rescue LinkedAccountError => ex
-      assert_match /created an invalid inbox/i, ex.to_s
-    end
   end
 end

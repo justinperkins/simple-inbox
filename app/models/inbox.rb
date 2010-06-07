@@ -21,10 +21,10 @@ class Inbox < ActiveRecord::Base
   }
   
   def handle_incoming(incoming_email)
-    # quick exit if this envelope has been processed already
-    return if emails.find_by_uid(incoming_email.uid)
+    # quick exit if this email has been processed already
+    return true if emails.by_uid(incoming_email.uid).count > 0
 
-    email_attrs = {:uid => incoming_email.uid, :from => incoming_email.from, :from_email => incoming_email.from, :subject => incoming_email.subject}
+    email_attrs = {:uid => incoming_email.uid, :from => incoming_email.from.first, :from_email => incoming_email.from.first, :subject => incoming_email.subject}
 
     # give the before rules a chance to run, things like ignoring emails, auto-deleting them, etc
     # we're creating a new envelope so that our before_process filter can have an actual envelope object to work with

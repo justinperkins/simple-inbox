@@ -13,6 +13,8 @@ class Email < ActiveRecord::Base
   
   validates_presence_of :uid, :from_email
   
+  named_scope :by_uid, lambda { |uid| {:conditions => {:uid => uid}} }
+  
   def linked_account
     self.inbox.linked_account
   end
