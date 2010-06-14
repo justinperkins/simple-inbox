@@ -1,8 +1,8 @@
-<%# Copyright 2009-2010 Justin Perkins %>
-<!DOCTYPE html>
+<!DOCTYPE html><%# Copyright 2009-2010 Justin Perkins %>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
+	<meta name="description" value="Simple Inbox is an email manager" />
 	<title><%= @page_title || 'Simple Inbox' %></title>	
 	<%= stylesheet_link_tag 'application' %>
 </head>
@@ -30,6 +30,8 @@
       <%= yield %>
     </div>
     <div id="footer">
+      <p><%= link_to('Need help or having problems?', 'http://github.com/justinperkins/simple-inbox/issues') %></p>
+      <p>This Simple Inbox is brought to you by <%= link_to('The Number 6', 'http://www.thenumber6.com') %></p>
     </div>
   </div>
 </body>

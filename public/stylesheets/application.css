@@ -1,3 +1,6 @@
+/* 
+Copyright 2009-2010 Justin Perkins
+*/
 body{
   font:62.5% Helvetica, Arial, sans-serif;
   background:#ebebeb;
@@ -30,3 +33,5 @@ h1, h2, h3, h4, h5{ font-weight:normal; }
 
 #content .destructive{ border-top:1px solid #ddd; margin-top:10px; overflow:hidden; }
 #content .destructive input{ display:block; float:left; margin:15px 10px 0 0; }
+
+#footer{ text-align:right; font-size:.9em; }
