@@ -1,0 +1,13 @@
+<%# Copyright 2009-2010 Justin Perkins %>
+<%= pluralize(@items.size, 'email') %> averted on <%= @day.strftime('%A, %B %d, %Y') %>
+
+<% @items.collect { |i| i.inbox.label }.uniq.sort.each do |inbox| %>
+  Labeled: <%= h(inbox) %>
+  <% @items.select { |i| i.inbox.label == inbox }.each do |email| %>
+    * <%= h(email.subject) %> (<%= h(email.from) %>)
+  <% end %>
+<% end %>
+
+Manage account: <%= user_path(@user, :only_path => false) %>
+
+Simple Inbox - <%= rotating_tagline %>

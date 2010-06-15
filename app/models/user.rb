@@ -11,8 +11,11 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.require_password_confirmation = false
     c.validate_email_field = false
-    c.validates_length_of_password_field_options :minimum => 1
   end
   
+  validates_uniqueness_of :login
+  
   has_one :linked_account, :dependent => :destroy
+  
+  named_scope :with_email, :conditions => "email <> ''"
 end

@@ -18,4 +18,15 @@ module ApplicationHelper
       "#{label} #{h(value)}"
     end
   end
+  
+  def rotating_tagline
+    taglines = [
+      "You have emails you don't want to read and that's OK",
+      "The simple email averter",
+      "A really easy way to manage the shitty emails of our lives",
+      "Hey you, get outta my inbox",
+      "Hey Rocky, watch me pull an email out of your inbox"
+    ]
+    taglines[rand(taglines.size)]
+  end
 end

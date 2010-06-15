@@ -88,7 +88,7 @@ class InboxTest < ActiveSupport::TestCase
   
   private
   def build_email
-    mail = Struct.new(:from, :subject, :uid)
-    mail.new('dude@lebowski.com', 'Will you abide?', Time.now.to_i)
+    mail = Struct.new(:from, :subject, :uid, :received)
+    mail.new('dude@lebowski.com', 'Will you abide?', Time.now.to_i, Time.now)
   end
 end
