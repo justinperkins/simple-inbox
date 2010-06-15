@@ -20,6 +20,7 @@ class LinkedAccount < ActiveRecord::Base
   end
   
   def pull
+    return if self.inactive
     logger.info "processing inbox for user: #{ self.user.login } at #{ Time.now } with last updated value #{ last_checked.to_s }"
 
     Gmail.new(self.email, self.password).inbox.emails(:unread).each do |email|
