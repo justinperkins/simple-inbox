@@ -54,6 +54,13 @@ class LinkedAccountTest < ActiveSupport::TestCase
     account.pull
   end
   
+  test "pull for disabled account does nothing" do
+    account = linked_accounts(:dudes_account)
+    account.inactive = Time.now
+    Gmail.expects(:new).never
+    account.pull
+  end
+  
   test "pulling emails does labeling" do
   end
   
