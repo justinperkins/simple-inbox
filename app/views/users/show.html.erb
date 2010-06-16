@@ -10,7 +10,7 @@
   <% if @user.linked_account %>
     <% cache("user/show/linked_account/#{ @user.linked_account.updated_at }") do %>
       <%= display_attribute(@user.linked_account, :email) %>
-      <%= display_attribute(@user.linked_account, :label => 'Mailboxes', :value => @user.linked_account.inboxes.count) %>
+      <%= display_attribute(@user.linked_account, :label => 'Mailboxes', :value => @user.linked_account.inboxes.count, :extra => "(#{ @user.linked_account.inboxes.collect(&:label).join(', ') })") %>
       <%= display_attribute(@user.linked_account, :label => 'Emails', :value => @user.linked_account.emails.count) %>
       <%= display_attribute(@user.linked_account, :last_checked, :value => format_datetime(@user.linked_account.last_checked)) %>
       <%= display_attribute(@user.linked_account, :label => 'State', :value => (@user.linked_account.inactive ? "deactivated on #{ format_datetime(@user.linked_account.inactive) }" : 'active')) %>

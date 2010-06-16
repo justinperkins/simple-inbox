@@ -10,12 +10,12 @@ module ApplicationHelper
   end
   
   def display_attribute(record, *args)
-    options = (args.last.is_a?(Hash) ? args.pop : {}).reverse_merge(:label => nil, :value => nil)
+    options = (args.last.is_a?(Hash) ? args.pop : {}).reverse_merge(:label => nil, :value => nil, :extra => nil)
     attribute = args.pop
     content_tag(:p) do
       label = content_tag(:strong, "#{ options[:label] || attribute.to_s.titleize }:")
       value = options[:value] || record.send(attribute)
-      "#{label} #{h(value)}"
+      "#{label} #{h(value)} #{options[:extra]}"
     end
   end
   
