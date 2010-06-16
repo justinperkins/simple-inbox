@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
       respond_to do |wants|
         wants.html do
           flash[:notice] = "Login successful!"
-          redirect_to user_path(@user_session.record)
+          redirect_to overview_user_path(@user_session.record)
         end
       end
     else
