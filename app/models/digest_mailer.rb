@@ -5,7 +5,7 @@ class DigestMailer < ActionMailer::Base
 
   def daily(user, day, items = [])
     recipients(user.email)
-    from("simpleinbox@thenumber6.com")
+    from("simpleinbox@sender.thenumber6.com")
     subject("Simple Inbox Daily Digest for #{ day.strftime('%m/%d/%Y') }: #{ items.size } #{ items.size == 1 ? 'Email' : 'Emails' }")
     body(:user => user, :day => day, :items => items)
   end

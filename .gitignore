@@ -3,3 +3,4 @@ schema.rb
 database.yml
 *.log
 vendor/
+tmp/
