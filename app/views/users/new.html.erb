@@ -2,9 +2,8 @@
 <h1>Create an Account</h1>
  
 <% form_for @user, :url => users_path do |f| %>
-  <%= f.error_messages %>
   <%= render :partial => "form", :object => f %>
-  <p>
+  <p class="buttons">
     <%= f.submit "Register" %>
     <%= link_to 'or login', new_user_session_path %>
   </p>

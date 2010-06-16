@@ -13,8 +13,6 @@ class User < ActiveRecord::Base
     c.validate_email_field = false
   end
   
-  validates_uniqueness_of :login
-  
   has_one :linked_account, :dependent => :destroy
   
   named_scope :with_email, :conditions => "email <> ''"

@@ -2,13 +2,12 @@
 <h1>Edit Your Account</h1>
  
 <% form_for @user, :url => user_path(@user) do |f| %>
-  <%= f.error_messages %>
   <%= render :partial => "form", :object => f %>
-  <p>
+  <p class="buttons">
     <%= f.submit "Update" %>
     <%= link_to 'cancel changes', user_path(@user) %>
   </p>
 <% end %>
-<div class="destructive">
+<div class="destructive buttons">
   <%= button_to 'Delete Account', user_path(@user), :method => :delete, :confirm => 'Are you sure? Like really, really sure? Everything of yours will be permanently deleted.' %>
 </div>

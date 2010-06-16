@@ -2,13 +2,15 @@
 <p class="login">
   <%= form.label :login %>
   <%= form.text_field :login %>
-</p>
-<p>
-  <%= form.label :email %>
-  <%= form.text_field :email %>
-  <em>optional, your primary account where emails will be forwarded to, if you have rules to do so</em>
+  <%= errors_for(:login, form.object) %>
 </p>
 <p>
   <%= form.label :password, form.object.new_record? ? nil : "Change password" %>
   <%= form.password_field :password %>
+  <%= errors_for(:password, form.object) %>
+</p>
+<p>
+  <%= form.label :email %>
+  <%= form.text_field :email %>
+  <%= errors_for(:email, form.object, :default => "optional, your primary account where your daily digest will be mailed to") %>
 </p>

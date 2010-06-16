@@ -1,0 +1,14 @@
+<%# Copyright 2009-2010 Justin Perkins %>
+<h1>Account Overview</h1>
+<% if @user.linked_account %>
+  <% cache("user/overview/#{ @user.linked_account.updated_at }") do %>
+    <ul class="intro">
+      <li><strong>Emails so far today: <%= @user.linked_account.emails.for_day(Date.today).count %></strong></li>
+      <li><strong>Lifetime emails: <%= @user.linked_account.emails.count %></strong></li>
+      <li><strong>Emails checked on the hour, every hour</strong></li>
+      <li><strong>Digests mailed every day at 6:30 AM CDT</strong></li>
+    </ul>
+  <% end %>
+<% else %>
+  <h2><%= link_to('You need to link up your catch-all gmail account', new_linked_account_path) %></h2>
+<% end %>

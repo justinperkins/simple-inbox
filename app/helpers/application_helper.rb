@@ -29,4 +29,16 @@ module ApplicationHelper
     ]
     taglines[rand(taglines.size)]
   end
+
+  def errors_for(field, record, options = {})
+    options.reverse_merge!(:default => nil)
+    if record.errors[field]
+      error_message = record.errors[field].respond_to?(:to_sentence) ? record.errors[field].to_sentence : record.errors[field]
+      error_message.gsub!(/^(is)/, '')
+      error_message.gsub!(/(\.)$/, '')
+      content_tag(:em, error_message)
+    elsif options[:default]
+      content_tag(:em, options[:default])
+    end
+  end
 end

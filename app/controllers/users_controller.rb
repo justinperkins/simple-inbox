@@ -1,9 +1,9 @@
 # Copyright 2009-2010 Justin Perkins
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => [:show, :edit, :update, :destroy]
+  before_filter :require_user, :only => [:show, :edit, :update, :destroy, :overview]
   
-  before_filter :load_current_user_into_user, :only => [:show, :edit, :update, :destroy]
+  before_filter :load_current_user_into_user, :only => [:show, :edit, :update, :destroy, :overview]
   
   def index
     respond_to do |wants|

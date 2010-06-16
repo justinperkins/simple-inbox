@@ -2,10 +2,9 @@
 <h1>Edit Your Linked Account (gmail)</h1>
  
 <% form_for @linked_account do |f| %>
-  <%= f.error_messages %>
   <% if @linked_account.active? %>
     <%= render :partial => "form", :object => f %>
-    <p>
+    <p class="buttons">
       <%= f.submit "Update" %>
       <%= link_to 'cancel changes', user_path(current_user) %>
     </p>
@@ -13,7 +12,7 @@
     <h3>This linked account is currently inactive, please re-enable the account if you'd like to edit these settings.</h3>
   <% end %>
 <% end %>
-<div class="destructive">
+<div class="destructive buttons">
   <% if @linked_account.active? %>
     <%= button_to 'Temporarily Disable Linked Account', deactivate_linked_account_path(@linked_account), :method => :post, :confirm => 'Your email on your linked account will be untouched by Simple Inbox until you come back here and re-enable it. Is that what you want?' %>
   <% else %>

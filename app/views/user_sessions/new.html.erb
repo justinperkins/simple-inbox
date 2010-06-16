@@ -11,10 +11,10 @@
     <%= f.label :password %>
     <%= f.password_field :password %>
   </p>
-  <p>
-    <%= f.check_box :remember_me %><%= f.label :remember_me %>
+  <p class="radio">
+    <%= f.check_box :remember_me %> <%= f.label :remember_me %>
   </p>
-  <p>
+  <p class="buttons">
     <%= f.submit "Login" %>
     <%= link_to 'or create account', new_user_path %>
   </p>

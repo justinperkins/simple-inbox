@@ -2,18 +2,17 @@
 <p>
   <%= form.label :email %>
   <%= form.text_field :email %>
+  <%= errors_for(:email, form.object, :default => "the email address you created as described #{ link_to('on our intro page', :controller => 'intro', :action => 'presetup') }") %>
 </p>
 <p>
-  <%= form.label :password, form.object.new_record? ? nil : "Change password" %>
+  <%= form.label :password %>
   <%= form.password_field :password %>
+  <%= errors_for(:email, form.object, :default => form.object.new_record? ? nil : "leave blank unless you want to update your password") %>
 </p>
 <% unless form.object.new_record? %>
-  <p>
-    <%= form.label :instant_archive %>
+  <p class="radio">
     <%= form.check_box :immediate_archive %>
-  </p>
-  <p>
-    <%= form.label :forward_all %>
-    <%= form.check_box :forward_all %>
+    <%= form.label :immediate_archive %>
+    (<em>archives the email in gmail after being processed, keep that inbox fresh and clean</em>)
   </p>
 <% end %>

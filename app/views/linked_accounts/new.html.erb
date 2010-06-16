@@ -1,10 +1,10 @@
 <%# Copyright 2009-2010 Justin Perkins %>
 <h1>Setup Your Linked Account (gmail)</h1>
- 
+<h2>You need to have your catch-all email address setup with Google Apps with Your Domain. 
+  <%= link_to('See here for instructions', :controller => 'intro', :action => 'presetup') %>.</h2>
 <% form_for @linked_account, :url => linked_accounts_path do |f| %>
-  <%= f.error_messages %>
   <%= render :partial => "form", :object => f %>
-  <p>
+  <p class="buttons">
     <%= f.submit "Create" %>
     <%= link_to 'cancel linked account setup', user_path(current_user) %>
   </p>
