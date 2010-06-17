@@ -18,8 +18,15 @@ class Email < ActiveRecord::Base
   named_scope :for_day, lambda { |day|
     {:conditions => ['arrived > ? AND arrived < ?', day-1.day, day+1.day]}
   }
+
+  before_create :stamp_arrived_if_blank
   
   def linked_account
     self.inbox.linked_account
+  end
+
+  private
+  def stamp_arrived_if_blank
+    self.arrived = Time.now if self.arrived.blank?
   end
 end

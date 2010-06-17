@@ -13,4 +13,11 @@ namespace :account do
       end
     end
   end
+
+  desc "patch arrived stamps"
+  task :repair_arrived => :environment do
+    Email.all.each do |email|
+      email.touch
+    end
+  end
 end
