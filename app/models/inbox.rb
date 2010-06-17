@@ -24,7 +24,10 @@ class Inbox < ActiveRecord::Base
     # quick exit if this email has been processed already
     return true if emails.by_uid(incoming_email.uid).count > 0
 
-    email_attrs = {:uid => incoming_email.uid, :from => incoming_email.from.first, :from_email => incoming_email.from.first, :subject => incoming_email.subject, :arrived => incoming_email.received}
+    arrived = if incoming_email.received.is_a?(Array) then incoming_email.received.first.date_time
+    else incoming_email.received.date_time
+    end
+    email_attrs = {:uid => incoming_email.uid, :from => incoming_email.from.first, :from_email => incoming_email.from.first, :subject => incoming_email.subject, :arrived => arrived}
 
     # give the before rules a chance to run, things like ignoring emails, auto-deleting them, etc
     # we're creating a new envelope so that our before_process filter can have an actual envelope object to work with
