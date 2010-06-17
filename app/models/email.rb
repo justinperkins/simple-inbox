@@ -16,7 +16,7 @@ class Email < ActiveRecord::Base
   
   named_scope :by_uid, lambda { |uid| {:conditions => {:uid => uid}} }
   named_scope :for_day, lambda { |day|
-    {:conditions => ['arrived > ? AND arrived < ?', day-1.day, day+1.day]}
+    {:conditions => {:arrived => (day.midnight)..day.midnight+1.day}}
   }
 
   before_create :stamp_arrived_if_blank
