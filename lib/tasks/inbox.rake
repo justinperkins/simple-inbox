@@ -9,7 +9,8 @@ namespace :account do
     task :daily => :environment do
       day = 1.day.ago
       User.with_email.each do |user|
-        DigestMailer.deliver_daily(user, day, user.linked_account.emails.for_day(day))
+        emails = user.linked_account.emails.for_day(day)
+        DigestMailer.deliver_daily(user, day, emails) unless emails.empty?
       end
     end
   end
