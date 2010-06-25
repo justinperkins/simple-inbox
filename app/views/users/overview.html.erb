@@ -13,7 +13,7 @@
       <li><strong>Mailboxes: <%= @user.linked_account.inboxes.count %></strong>
         <span><%= @user.linked_account.inboxes.collect(&:label).join(', ') %></span></li>
       <li><strong>Emails checked on the hour, every hour</strong></li>
-      <li><strong>Digests mailed every day at 6:30 AM CDT</strong></li>
+      <li><strong>Digests mailed every day at 6:30 AM CDT, unless you had no emails</strong></li>
     </ul>
   <% end %>
 <% else %>
