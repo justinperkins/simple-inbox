@@ -6,7 +6,7 @@ cache("account/feed/#{ current_user.linked_account.cache_key }") do
     feed.updated(current_user.linked_account.updated_at)
 
     current_user.linked_account.emails.by_arrived.scoped(:limit => 50).each do |email|
-      feed.entry(email, :url => root_url(:only_path => false)) do |entry|
+      feed.entry(email, :published => email.arrived, :url => root_url(:only_path => false)) do |entry|
         entry.title(email.subject)
         entry.content(feed_entry_content(email), :type => 'html')
         entry.updated(email.updated_at)
