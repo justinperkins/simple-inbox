@@ -15,6 +15,7 @@
       <%= display_attribute(@user.linked_account, :last_checked, :value => format_datetime(@user.linked_account.last_checked)) %>
       <%= display_attribute(@user.linked_account, :label => 'State', :value => (@user.linked_account.inactive ? "deactivated on #{ format_datetime(@user.linked_account.inactive) }" : 'active')) %>
       <%= display_attribute(@user.linked_account, :label => 'Instant archive', :value => (@user.linked_account.immediate_archive? ? "active" : 'inactive')) %>
+      <%= display_attribute(@user.linked_account, :label => 'Daily DIgest', :value => (@user.linked_account.digest? ? "active" : 'inactive')) %>
     <% end %>
   <% else %>
     <p><em><%= link_to 'You need to setup your linked account', new_linked_account_path %></em></p>
