@@ -3,8 +3,12 @@
 <% if @user.linked_account %>
   <% cache("user/overview/#{ @user.linked_account.updated_at }") do %>
     <ul class="intro">
-      <li><strong>Emails received today (<%= Date.today.strftime('%a %b %d') %>): <%= @user.linked_account.emails.for_day(Date.today).count %></strong></li>
-      <li><strong>Emails received yesterday: <%= @user.linked_account.emails.for_day(1.day.ago).count %></strong></li>
+      <li><strong>Emails received today (<%= Date.today.strftime('%a %b %d') %>): <%= @user.linked_account.emails.for_day(Date.today).count %></strong>
+        <span><%= @user.linked_account.emails.for_day(Date.today).collect(&:inbox).collect(&:label).uniq.join(', ') %></span>
+      </li>
+      <li><strong>Emails received yesterday: <%= @user.linked_account.emails.for_day(1.day.ago).count %></strong>
+        <span><%= @user.linked_account.emails.for_day(1.day.ago).collect(&:inbox).collect(&:label).uniq.join(', ') %></span>
+      </li>
       <li><strong>Lifetime emails: <%= @user.linked_account.emails.count %></strong></li>
       <li><strong>Mailboxes: <%= @user.linked_account.inboxes.count %></strong>
         <span><%= @user.linked_account.inboxes.collect(&:label).join(', ') %></span></li>
