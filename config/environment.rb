@@ -1,7 +1,9 @@
 RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
-RAILS_ENV = 'production'
 
 require File.join(File.dirname(__FILE__), 'boot')
+
+railsrc = File.join(RAILS_ROOT, '.railsrc')
+load(railsrc) if File.exists?(railsrc)
 
 Rails::Initializer.run do |config|
   config.gem 'authlogic'

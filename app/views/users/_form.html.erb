@@ -5,9 +5,9 @@
   <%= errors_for(:login, form.object) %>
 </p>
 <p>
-  <%= form.label :password, form.object.new_record? ? nil : "Change password" %>
+  <%= form.label :password %>
   <%= form.password_field :password %>
-  <%= errors_for(:password, form.object) %>
+  <%= errors_for(:password, form.object, :default => form.object.new_record? ? nil : "leave blank unless you want to update your password") %>
 </p>
 <p>
   <%= form.label :email %>
