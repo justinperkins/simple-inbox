@@ -1,0 +1,39 @@
+<%# Copyright 2009-2010 Justin Perkins %>
+<ol class="intro">
+  <li><strong>Setup <%= link_to('Google Apps for Your Domain', 'http://www.google.com/a/cpanel/domain/new') %></strong>
+    <span>We recommend using a subdomain (i.yourdomain.com), so that you don't corrupt your top-level domain addresses.</span>
+  </li>
+  <li><strong>Create an email address for your account</strong>
+    <span>From the domain dashboard at Google: 
+      <strong>Dashboard</strong> &rarr;
+      <strong>Users &amp; Groups</strong> &rarr;
+      <strong>Create a new user</strong>
+    </span>
+    <span>First and last name do not matter. For the username, we recommend <em>simple-inbox</em>. 
+      It really doesn't matter though, but it's nice to be able to distinguish from incoming emails;
+      something like <em>amazon</em> would be a bad choice.
+    </span>
+  </li>
+  <li><strong>Enable IMAP</strong>
+    <span>You will need to log into gmail for the account you just created, the last page of creating your account will provide a link
+      to gmail, your login and a temporary password.</span>
+    <span>From Gmail:
+      <strong>Settings</strong> &rarr;
+      <strong>Forwarding and IMAP/POP</strong> &rarr;
+      <strong>Enable IMAP</strong> &rarr;
+      <strong>Save Changes</strong>
+    <span>
+  </li>
+  <li><strong>Make it a catch-all address</strong>
+    <span>Again, from the domain dashboard: 
+      <strong>Dashboard</strong> &rarr;
+      <strong>Service Settings</strong> &rarr;
+      <strong>Email</strong>
+    </span>
+    <span>Under the section <em>Catch-all address</em>, select the radio button labeled <em>Forward the email &hellip;</em> and enter the username that you created in the previous step.</span>
+  </li>
+  <li><strong>Now it's time to <%= link_to('create your Simple Inbox account', new_user_path) %> and hook it up with Gmail</strong></li>
+  <li><strong>Start using {WHATEVER}@i.yourdomain.com</strong>
+    <span>Use with services if you don't want them to fill your primary inbox with crap. <%= link_to 'What do we do with your google apps inbox', :action => 'what_happens' %>?</span>
+  </li>
+</ol>

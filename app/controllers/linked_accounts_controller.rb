@@ -3,6 +3,13 @@ class LinkedAccountsController < ApplicationController
   before_filter :require_user
   before_filter :load_current_users_account_into_linked_account, :only => [:edit, :update, :destroy, :activate, :deactivate]
   
+  def index
+    respond_to do |wants|
+      wants.html { redirect_to overview_user_path(current_user) }
+      wants.atom # fall through to: index.atom.builder
+    end
+  end
+  
   def new
     @linked_account = current_user.build_linked_account
   end

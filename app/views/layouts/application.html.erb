@@ -5,6 +5,7 @@
 	<meta name="description" value="Simple Inbox is an email manager" />
 	<title><%= @page_title || 'Simple Inbox' %></title>	
 	<%= stylesheet_link_tag 'application' %>
+	<%= auto_discovery_link_tag(:atom, linked_accounts_path(:format => :atom)) if current_user %>
 </head>
 
 <body class="control-<%= @controller.controller_name %>">
@@ -23,11 +24,11 @@
           <li><%= link_to 'login', new_user_session_path %></li>
           <li><%= link_to 'register', new_user_path %></li>
         <% end %>
+        <li class="guide"><%= link_to 'guide', :controller => 'intro', :action => 'guide' %></li>
       </ul>
     </div>
-    <div id="navigation">
-    </div>
     <div id="content">
+      <%= prebody %>
       <%= yield %>
     </div>
     <div id="footer">

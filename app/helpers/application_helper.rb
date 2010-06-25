@@ -1,5 +1,15 @@
 # Copyright 2009-2010 Justin Perkins
 module ApplicationHelper
+  def prebody
+    return unless @controller.controller_name == 'intro'
+    content_tag(:ul, :class => 'intro-nav') do
+      [{:index => 'overview'}, {:guide => 'setup'}, {:what_happens => 'what happens'}].collect { |nav|
+        action = nav.keys.first
+        content_tag(:li, link_to(nav[action], :action => action))
+      }.join("\n")
+    end
+  end
+  
   def render_flash
     content_tag(:div, flash[:notice], :id => 'notice') if flash[:notice]
   end

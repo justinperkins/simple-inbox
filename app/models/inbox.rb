@@ -55,6 +55,9 @@ class Inbox < ActiveRecord::Base
   
   def after_process(email)
     # render any after rules
+    if self.linked_account.forward_new?
+      # forward this email to the user's primary account
+    end
   end
   
   def record_usage

@@ -76,7 +76,7 @@ class InboxTest < ActiveSupport::TestCase
     inbox.record_usage
   end
   
-  test "test stop flag" do
+  test "check stop flag" do
     inbox = inboxes(:hello_box)
     inbox.stop_processing = true # force the stop flag, hacky test
 
@@ -89,6 +89,7 @@ class InboxTest < ActiveSupport::TestCase
   private
   def build_email
     mail = Struct.new(:from, :subject, :uid, :received)
-    mail.new('dude@lebowski.com', 'Will you abide?', Time.now.to_i, Time.now)
+    time = Struct.new(:date_time)
+    mail.new('dude@lebowski.com', 'Will you abide?', Time.now.to_i, time.new(Time.now.to_s))
   end
 end

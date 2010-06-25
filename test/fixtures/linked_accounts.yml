@@ -6,6 +6,8 @@ dudes_account:
   inactive:
   immediate_archive: true
   forward_all:
+  forward_new:
+  digest:
 walters_account:
   user: walter
   email: walter@hisdomain.com
@@ -14,3 +16,6 @@ walters_account:
   inactive: <%= Time.now %>
   immediate_archive: true
   forward_all:
+  forward_new:
+  digest:
+    

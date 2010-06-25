@@ -13,7 +13,8 @@ class Email < ActiveRecord::Base
   belongs_to :inbox
   
   validates_presence_of :uid, :from_email
-  
+
+  named_scope :by_arrived, :order => 'arrived DESC'
   named_scope :by_uid, lambda { |uid| {:conditions => {:uid => uid}} }
   named_scope :for_day, lambda { |day|
     {:conditions => {:arrived => (day.midnight)..day.midnight+1.day}}
@@ -24,7 +25,7 @@ class Email < ActiveRecord::Base
   def linked_account
     self.inbox.linked_account
   end
-
+  
   private
   def stamp_arrived_if_blank
     self.arrived = Time.now if self.arrived.blank?

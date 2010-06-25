@@ -7,6 +7,8 @@
 # t.datetime  :inactive
 # t.boolean   :immediate_archive
 # t.boolean   :forward_all
+# t.boolean   :forward_new
+# t.boolean   :digest
 # t.timestamps
 
 class LinkedAccount < ActiveRecord::Base
@@ -14,6 +16,9 @@ class LinkedAccount < ActiveRecord::Base
   has_many :inboxes, :dependent => :destroy
   has_many :emails, :through => :inboxes
   validates_presence_of :email, :password
+
+  named_scope :with_user, :include => :user
+  named_scope :wants_digest, :conditions => {:digest => true}
   
   def self.pull_all
     self.all.each { |a| a.pull }

@@ -21,11 +21,16 @@ h1, h2, h3, h4, h5{ font-weight:normal; }
 #header h1{ display:inline; font-size:1.8em; }
 #header h2{ display:inline; font-size:.95em; padding:0 0 0 20px; }
 
-#user-nav{ border-bottom:1px solid #fff; padding:0 0 3px; }
+#user-nav{ border-bottom:1px solid #00f; padding:0 0 3px; }
 #user-nav *{ padding:0; margin:0; }
-#user-nav ul{}
+#user-nav ul{ position:relative; }
 #user-nav ul li{ list-style:none; display:inline; padding:0 10px 0 0; }
 #user-nav ul li a{ text-decoration:none; color:#4186D3; }
+#user-nav ul li.guide{ position:absolute; right:0; }
+
+.intro-nav{ list-style:none; margin:10px 0 0; padding:0; font-size:1.5em; text-align:center; }
+.intro-nav li{ margin:0; padding:0 20px; display:inline; }
+.intro-nav li a{ }
 
 #content .intro{
   font-size:2em;
@@ -50,5 +55,4 @@ h1, h2, h3, h4, h5{ font-weight:normal; }
 #content .destructive{ border-top:1px solid #ddd; margin-top:10px; overflow:hidden; }
 #content .destructive input{ display:block; float:left; margin:15px 10px 0 0; }
 
-#footer{ text-align:right; font-size:.9em; }
-body.control-intro #footer{ display:none; }
+#footer{ text-align:right; font-size:.9em; border-top:1px solid #00f; margin:10px 0 0; }

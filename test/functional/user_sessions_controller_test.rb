@@ -13,7 +13,7 @@ class UserSessionsControllerTest < ActionController::TestCase
     post :create, :user_session => { :login => "dude", :password => "abides" }
     assert user_session = UserSession.find
     assert_equal users(:dude), user_session.user
-    assert_redirected_to user_path(user_session.user)
+    assert_redirected_to overview_user_path(user_session.user)
   end
 
   test "delete session" do

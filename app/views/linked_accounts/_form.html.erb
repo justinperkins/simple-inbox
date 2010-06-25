@@ -15,4 +15,9 @@
     <%= form.label :immediate_archive %>
     (<em>archives the email in gmail after being processed, keep that inbox fresh and clean</em>)
   </p>
+  <p class="radio">
+    <%= form.check_box :digest %>
+    <%= form.label :send_daily_digest %>
+    (<em>emails a summary to your primary account at the end of the day</em>)
+  </p>
 <% end %>
