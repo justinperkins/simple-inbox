@@ -9,7 +9,7 @@ cache("account/feed/#{ current_user.linked_account.cache_key }") do
       feed.entry(email, :published => email.arrived, :url => root_url(:only_path => false)) do |entry|
         entry.title(email.subject)
         entry.content(feed_entry_content(email), :type => 'html')
-        entry.updated(email.updated_at)
+        entry.updated(email.arrived)
         entry.author do |author|
           author.name(email.from_email)
         end
