@@ -4,3 +4,4 @@ database.yml
 *.log
 vendor/
 tmp/
+.railsrc
