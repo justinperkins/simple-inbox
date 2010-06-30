@@ -4,6 +4,5 @@ module LinkedAccountsHelper
     content_tag(:p, "Subject: #{ h(email.subject) }") +
     content_tag(:p, "Mailbox: #{ h(email.inbox.label) }") +
     content_tag(:p, "From: #{ h(email.from_email) }") +
-    content_tag(:p, "Arrived: #{ email.arrived.strftime('%a %b %d, %Y at %H:%M') }")
   end
 end
