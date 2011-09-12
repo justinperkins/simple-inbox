@@ -22,6 +22,8 @@ class UsersController < ApplicationController
   end
 
   def create
+    head :not_allowed
+    return
     @user = User.new(params[:user])
     if @user.save
       respond_to do |wants|

@@ -22,7 +22,7 @@
           <li><%= link_to 'logout', user_session_path, :method => :delete %></li>
         <% else %>
           <li><%= link_to 'login', new_user_session_path %></li>
-          <li><%= link_to 'register', new_user_path %></li>
+          <!-- <li><%= link_to 'register', new_user_path %></li> -->
         <% end %>
         <li class="guide"><%= link_to 'guide', :controller => 'intro', :action => 'guide' %></li>
       </ul>
